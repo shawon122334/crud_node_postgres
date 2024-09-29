@@ -30,3 +30,18 @@ export const addEmp = async (req,res) =>{
         return res.status(500).json({"Error": "Internel Server Error"});
     }
 }
+
+export const updateEmp = async (req,res) =>{
+    let empID= req.params.empID;
+    try{
+        const emp = await UserModel.update(req.body,{where:{empID}});
+        if(emp[0]==0){
+            return res.status(404).json({message:"Not Found"})
+        }
+        return res.status(201).json({message:"Updated Successfully"})
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({"Error": "Internel Server Error"});
+    }
+}
